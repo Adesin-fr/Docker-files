@@ -2,8 +2,8 @@ name: Build Images
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - main
 
 jobs:
   publish:
