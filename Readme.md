@@ -1,6 +1,6 @@
-Dépot contenant des images Docker utilisées pour les apps du pole Dev
+Repository that contains Docker images for PHP applications (laravel based).
 
 -   php8.2-debian-extensions :
-    Image basée sur php8.2-cli officielle, incluant les extensions nécessaires aux apps ainsi que composer
+    Based on official php8.2-cli, including the extensions necessary for apps as well as composer
 
-Les images sont buildées à chaque commit via la CI et poussées dans le registry.dataouest.net
+- Debian based images includes a mariadb-client
