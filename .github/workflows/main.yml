@@ -43,10 +43,10 @@ jobs:
             type=ref,event=tag
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: cloudposse/github-action-docker-build-push@main
         with:
           #image: ${{ env.IMAGE_NAME }}
-          push: true
-          #registry: ${{ env.REGISTRY }}
+          #push: true
+          registry: ${{ env.REGISTRY }}
           tags: adesin-fr/frankenphp-8.3-custom:latest
           file: ${{ env.DOCKERFILE_PATH }}
