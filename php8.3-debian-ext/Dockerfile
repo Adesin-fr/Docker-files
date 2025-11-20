@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1.5-php8.3-trixie
+FROM dunglas/frankenphp:1.9-php8.3-trixie
 
 # Installer des extensions PHP supplémentaires
 # Le script 'docker-php-extension-installer' est fourni dans l'image de base [1].
