@@ -1,5 +1,8 @@
 FROM dunglas/frankenphp:1.9-php8.3-trixie
 
+# Install unzip command: 
+RUN apt-get update && apt-get install -y unzip curl
+
 # Installer des extensions PHP supplémentaires
 # Le script 'docker-php-extension-installer' est fourni dans l'image de base [1].
 # Exemple d'extensions courantes nécessaires pour Laravel et la performance :
