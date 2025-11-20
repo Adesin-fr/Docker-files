@@ -1,12 +1,19 @@
-FROM php:8.3-cli
+FROM dunglas/frankenphp:1.5-php8.3-trixie
 
-# Install composer
-COPY --link --from=composer:2.8 /usr/bin/composer /usr/bin/composer
-
-# PHP Extension manager
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-
-RUN install-php-extensions gd zip bz2 pcntl mbstring imagick bcmath sockets opcache exif pdo_mysql intl redis
-
-# Install a MariaDB Client
-RUN apt update; apt upgrade; apt install -y mariadb-client
+# Installer des extensions PHP supplémentaires
+# Le script 'docker-php-extension-installer' est fourni dans l'image de base [1].
+# Exemple d'extensions courantes nécessaires pour Laravel et la performance :
+RUN install-php-extensions \
+    bz2 \
+    pcntl \
+    mbstring \
+    bcmath \
+    sockets \
+    opcache \
+    exif \
+    pdo_mysql \
+    zip \
+    intl \
+    gd \
+    imagick \
+    redis

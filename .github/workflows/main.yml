@@ -1,0 +1,54 @@
+name: Build Docker image 
+
+on:
+  push:
+    branches:
+      - main
+
+
+env:
+  # Configuration du Container Registry
+  REGISTRY: ghcr.io
+  # Le nom de l'image sur GHCR. Remplacer <VOTRE_REPOSITORIE> par le chemin GHCR souhaité.
+  IMAGE_NAME: ${{ github.repository }}/frankenphp-8.3-custom
+  DOCKERFILE_PATH: ./php8.3-debian-ext/Dockerfile
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Nécessaire pour publier sur GHCR
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          # Utiliser le GITHUB_TOKEN fourni par l'environnement
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Génère les tags : latest, et le tag basé sur la version (ex: v1.0.0)
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=tag
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
