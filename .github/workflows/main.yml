@@ -47,6 +47,8 @@ jobs:
         with:
           image: adesin-fr/frankenphp-8.3-custom
           #push: true
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           tags: latest
           dockerfile: ${{ env.DOCKERFILE_PATH }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
