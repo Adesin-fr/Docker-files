@@ -48,5 +48,5 @@ jobs:
           #image: ${{ env.IMAGE_NAME }}
           push: true
           #registry: ${{ env.REGISTRY }}
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: adesin-fr/frankenphp-8.3-custom:latest
           file: ${{ env.DOCKERFILE_PATH }}
